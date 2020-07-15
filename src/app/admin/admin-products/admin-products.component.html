@@ -1,1 +1,46 @@
-<p>admin-products works!</p>
+<p>
+  <a routerLink="/admin/products/new" class="btn btn-success">
+    <i class="fa fa-plus"></i> New Product
+  </a>
+</p>
+<!-- <p>
+  <input
+    #query
+    (keyup)="filter(query.value)"
+    type="text"
+    class="form-control"
+    placeholder="Search..."
+  />
+</p> -->
+
+<table *ngIf="filteredProducts.length > 0" datatable class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of filteredProducts">
+      <td>{{ p.payload.val().title }}</td>
+      <td>${{ p.payload.val().price }}</td>
+      <td>
+        <button
+          class="btn btn-sm btn-outline-primary"
+          [routerLink]="['/admin/products/', p.key]"
+        >
+          <i class="fa fa-pencil"></i> Edit
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button
+          type="button"
+          (click)="delete(p.key)"
+          class="btn btn-sm btn-outline-danger"
+        >
+          <i class="fa fa-trash"></i> Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
